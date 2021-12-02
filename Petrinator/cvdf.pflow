@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?><document>
+    <id/>
+    <x/>
+    <y/>
+    <label/>
+    <subnet>
+        <id/>
+        <x>0</x>
+        <y>0</y>
+        <label/>
+        <place>
+            <id>P1</id>
+            <x>-219</x>
+            <y>-107</y>
+            <label>P1</label>
+            <tokens>0</tokens>
+            <isStatic>false</isStatic>
+        </place>
+    </subnet>
+    <roles/>
+</document>

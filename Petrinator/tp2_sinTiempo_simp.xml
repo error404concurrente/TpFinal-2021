@@ -1,0 +1,759 @@
+<?xml version="1.0" encoding="ISO-8859-1"?><pnml>
+<net id="Net-One" type="P/T net">
+<token id="Default" enabled="true" red="0" green="0" blue="0"/>
+<place id="ColaP1">
+<graphics>
+<position x="420.0" y="195.0"/>
+</graphics>
+<name>
+<value>ColaP1</value>
+<graphics>
+<offset x="0.0" y="0.0"/>
+</graphics>
+</name>
+<initialMarking>
+<value>Default,0</value>
+<graphics>
+<offset x="0.0" y="0.0"/>
+</graphics>
+</initialMarking>
+<capacity>
+<value>0</value>
+</capacity>
+</place>
+<place id="ColaProcesos">
+<graphics>
+<position x="345.0" y="330.0"/>
+</graphics>
+<name>
+<value>ColaProcesos</value>
+<graphics>
+<offset x="0.0" y="0.0"/>
+</graphics>
+</name>
+<initialMarking>
+<value>Default,0</value>
+<graphics>
+<offset x="0.0" y="0.0"/>
+</graphics>
+</initialMarking>
+<capacity>
+<value>0</value>
+</capacity>
+</place>
+<place id="DisM1">
+<graphics>
+<position x="1020.0" y="105.0"/>
+</graphics>
+<name>
+<value>DisM1</value>
+<graphics>
+<offset x="0.0" y="1.1111111111111112"/>
+</graphics>
+</name>
+<initialMarking>
+<value>Default,8</value>
+<graphics>
+<offset x="0.0" y="0.0"/>
+</graphics>
+</initialMarking>
+<capacity>
+<value>0</value>
+</capacity>
+</place>
+<place id="LimiteColaP1">
+<graphics>
+<position x="345.0" y="90.0"/>
+</graphics>
+<name>
+<value>LimiteColaP1</value>
+<graphics>
+<offset x="-1.0" y="0.0"/>
+</graphics>
+</name>
+<initialMarking>
+<value>Default,4</value>
+<graphics>
+<offset x="0.0" y="0.0"/>
+</graphics>
+</initialMarking>
+<capacity>
+<value>0</value>
+</capacity>
+</place>
+<place id="ListoP1">
+<graphics>
+<position x="795.0" y="195.0"/>
+</graphics>
+<name>
+<value>ListoP1</value>
+<graphics>
+<offset x="-101.0" y="-11.0"/>
+</graphics>
+</name>
+<initialMarking>
+<value>Default,0</value>
+<graphics>
+<offset x="0.0" y="0.0"/>
+</graphics>
+</initialMarking>
+<capacity>
+<value>0</value>
+</capacity>
+</place>
+<place id="M1">
+<graphics>
+<position x="1050.0" y="240.0"/>
+</graphics>
+<name>
+<value>M1</value>
+<graphics>
+<offset x="-1.0" y="-10.0"/>
+</graphics>
+</name>
+<initialMarking>
+<value>Default,0</value>
+<graphics>
+<offset x="0.0" y="0.0"/>
+</graphics>
+</initialMarking>
+<capacity>
+<value>0</value>
+</capacity>
+</place>
+<place id="P0">
+<graphics>
+<position x="180.0" y="330.0"/>
+</graphics>
+<name>
+<value>P0</value>
+<graphics>
+<offset x="0.0" y="0.0"/>
+</graphics>
+</name>
+<initialMarking>
+<value>Default,1</value>
+<graphics>
+<offset x="0.0" y="0.0"/>
+</graphics>
+</initialMarking>
+<capacity>
+<value>0</value>
+</capacity>
+</place>
+<place id="Procesador1">
+<graphics>
+<position x="480.0" y="45.0"/>
+</graphics>
+<name>
+<value>Procesador1</value>
+<graphics>
+<offset x="0.0" y="0.0"/>
+</graphics>
+</name>
+<initialMarking>
+<value>Default,1</value>
+<graphics>
+<offset x="0.0" y="0.0"/>
+</graphics>
+</initialMarking>
+<capacity>
+<value>0</value>
+</capacity>
+</place>
+<place id="ProcesandoP1">
+<graphics>
+<position x="615.0" y="195.0"/>
+</graphics>
+<name>
+<value>ProcesandoP1</value>
+<graphics>
+<offset x="3.3333333333333335" y="-1.1111111111111112"/>
+</graphics>
+</name>
+<initialMarking>
+<value>Default,0</value>
+<graphics>
+<offset x="0.0" y="0.0"/>
+</graphics>
+</initialMarking>
+<capacity>
+<value>0</value>
+</capacity>
+</place>
+<place id="RecursoTareas">
+<graphics>
+<position x="705.0" y="345.0"/>
+</graphics>
+<name>
+<value>RecursoTareas</value>
+<graphics>
+<offset x="0.0" y="0.0"/>
+</graphics>
+</name>
+<initialMarking>
+<value>Default,1</value>
+<graphics>
+<offset x="0.0" y="0.0"/>
+</graphics>
+</initialMarking>
+<capacity>
+<value>0</value>
+</capacity>
+</place>
+<place id="Tarea2P1">
+<graphics>
+<position x="705.0" y="120.0"/>
+</graphics>
+<name>
+<value>Tarea2P1</value>
+<graphics>
+<offset x="0.0" y="0.0"/>
+</graphics>
+</name>
+<initialMarking>
+<value>Default,0</value>
+<graphics>
+<offset x="0.0" y="0.0"/>
+</graphics>
+</initialMarking>
+<capacity>
+<value>0</value>
+</capacity>
+</place>
+<transition id="ArrivalRate">
+<graphics>
+<position x="270.0" y="330.0"/>
+</graphics>
+<name>
+<value>ArrivalRate</value>
+<graphics>
+<offset x="-5.0" y="35.0"/>
+</graphics>
+</name>
+<orientation>
+<value>0</value>
+</orientation>
+<rate>
+<value>1.0</value>
+</rate>
+<timed>
+<value>false</value>
+</timed>
+<infiniteServer>
+<value>false</value>
+</infiniteServer>
+<priority>
+<value>1</value>
+</priority>
+</transition>
+<transition id="AsignarP1">
+<graphics>
+<position x="345.0" y="195.0"/>
+</graphics>
+<name>
+<value>AsignarP1</value>
+<graphics>
+<offset x="-184.0" y="104.0"/>
+</graphics>
+</name>
+<orientation>
+<value>0</value>
+</orientation>
+<rate>
+<value>1.0</value>
+</rate>
+<timed>
+<value>false</value>
+</timed>
+<infiniteServer>
+<value>false</value>
+</infiniteServer>
+<priority>
+<value>1</value>
+</priority>
+</transition>
+<transition id="EP1">
+<graphics>
+<position x="480.0" y="195.0"/>
+</graphics>
+<name>
+<value>EP1</value>
+<graphics>
+<offset x="-5.0" y="35.0"/>
+</graphics>
+</name>
+<orientation>
+<value>0</value>
+</orientation>
+<rate>
+<value>1.0</value>
+</rate>
+<timed>
+<value>false</value>
+</timed>
+<infiniteServer>
+<value>false</value>
+</infiniteServer>
+<priority>
+<value>1</value>
+</priority>
+</transition>
+<transition id="FinalizarT2P1">
+<graphics>
+<position x="795.0" y="120.0"/>
+</graphics>
+<name>
+<value>FinalizarT2P1</value>
+<graphics>
+<offset x="-5.0" y="35.0"/>
+</graphics>
+</name>
+<orientation>
+<value>0</value>
+</orientation>
+<rate>
+<value>1.0</value>
+</rate>
+<timed>
+<value>false</value>
+</timed>
+<infiniteServer>
+<value>false</value>
+</infiniteServer>
+<priority>
+<value>1</value>
+</priority>
+</transition>
+<transition id="P1M1">
+<graphics>
+<position x="900.0" y="150.0"/>
+</graphics>
+<name>
+<value>P1M1</value>
+<graphics>
+<offset x="-5.0" y="35.0"/>
+</graphics>
+</name>
+<orientation>
+<value>0</value>
+</orientation>
+<rate>
+<value>1.0</value>
+</rate>
+<timed>
+<value>false</value>
+</timed>
+<infiniteServer>
+<value>false</value>
+</infiniteServer>
+<priority>
+<value>1</value>
+</priority>
+</transition>
+<transition id="PT2P1">
+<graphics>
+<position x="615.0" y="120.0"/>
+</graphics>
+<name>
+<value>PT2P1</value>
+<graphics>
+<offset x="-5.0" y="35.0"/>
+</graphics>
+</name>
+<orientation>
+<value>0</value>
+</orientation>
+<rate>
+<value>1.0</value>
+</rate>
+<timed>
+<value>false</value>
+</timed>
+<infiniteServer>
+<value>false</value>
+</infiniteServer>
+<priority>
+<value>1</value>
+</priority>
+</transition>
+<transition id="s1">
+<graphics>
+<position x="1080.0" y="150.0"/>
+</graphics>
+<name>
+<value>s1</value>
+<graphics>
+<offset x="-5.0" y="35.0"/>
+</graphics>
+</name>
+<orientation>
+<value>0</value>
+</orientation>
+<rate>
+<value>1.0</value>
+</rate>
+<timed>
+<value>true</value>
+</timed>
+<infiniteServer>
+<value>false</value>
+</infiniteServer>
+<priority>
+<value>1</value>
+</priority>
+</transition>
+<transition id="T2">
+<graphics>
+<position x="705.0" y="195.0"/>
+</graphics>
+<name>
+<value>T2</value>
+<graphics>
+<offset x="-5.0" y="35.0"/>
+</graphics>
+</name>
+<orientation>
+<value>0</value>
+</orientation>
+<rate>
+<value>1.0</value>
+</rate>
+<timed>
+<value>false</value>
+</timed>
+<infiniteServer>
+<value>false</value>
+</infiniteServer>
+<priority>
+<value>1</value>
+</priority>
+</transition>
+<arc id="ArrivalRate to ColaProcesos" source="ArrivalRate" target="ColaProcesos">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="286" y="342" curvePoint="false"/>
+<arcpath id="001" x="342" y="342" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="AsignarP1 to ColaP1" source="AsignarP1" target="ColaP1">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="361" y="207" curvePoint="false"/>
+<arcpath id="001" x="417" y="207" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="AsignarP1 to P0" source="AsignarP1" target="P0">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="351" y="207" curvePoint="false"/>
+<arcpath id="001" x="203" y="332" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="ColaP1 to EmpezarP1" source="ColaP1" target="EP1">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="446" y="207" curvePoint="false"/>
+<arcpath id="001" x="486" y="212" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="ColaProcesos to AsignarP1" source="ColaProcesos" target="AsignarP1">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="357" y="327" curvePoint="false"/>
+<arcpath id="001" x="357" y="222" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="DisponibleM1 to P1M1" source="DisM1" target="P1M1">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="1017" y="121" curvePoint="false"/>
+<arcpath id="001" x="917" y="157" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="EmpezarP1 to LimiteColaP1" source="EP1" target="LimiteColaP1">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="487" y="202" curvePoint="false"/>
+<arcpath id="001" x="368" y="111" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="EmpezarP1 to ProcesandoP1" source="EP1" target="ProcesandoP1">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="497" y="202" curvePoint="false"/>
+<arcpath id="001" x="612" y="207" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="FinalizarT2P1 to ListoP1" source="FinalizarT2P1" target="ListoP1">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="807" y="147" curvePoint="false"/>
+<arcpath id="001" x="807" y="192" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="FinalizarT2P1 to RecursoTareas" source="FinalizarT2P1" target="RecursoTareas">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="807" y="147" curvePoint="false"/>
+<arcpath id="001" x="722" y="343" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="LimiteColaP1 to AsignarP1" source="LimiteColaP1" target="AsignarP1">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="357" y="116" curvePoint="false"/>
+<arcpath id="001" x="357" y="192" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="ListoP1 to P1M1" source="ListoP1" target="P1M1">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="820" y="200" curvePoint="false"/>
+<arcpath id="001" x="906" y="162" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="M1 to Solucion1" source="M1" target="s1">
+<graphics/>
+<inscription>
+<value>Default,7</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="1067" y="238" curvePoint="false"/>
+<arcpath id="001" x="1092" y="177" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="P0 to ArrivalRate" source="P0" target="ArrivalRate">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="206" y="342" curvePoint="false"/>
+<arcpath id="001" x="276" y="342" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="P1M1 to M1" source="P1M1" target="M1">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="916" y="167" curvePoint="false"/>
+<arcpath id="001" x="1049" y="244" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="P1M1 to Procesador1" source="P1M1" target="Procesador1">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="912" y="147" curvePoint="false"/>
+<arcpath id="001" x="914" y="58" curvePoint="false"/>
+<arcpath id="002" x="506" y="57" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="Procesador1 to EmpezarP1" source="Procesador1" target="EP1">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="492" y="71" curvePoint="false"/>
+<arcpath id="001" x="492" y="192" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="ProcesandoP1 to ProcesarT2P1" source="ProcesandoP1" target="PT2P1">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="627" y="192" curvePoint="false"/>
+<arcpath id="001" x="627" y="147" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="ProcesandoP1 to T2" source="ProcesandoP1" target="T2">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="641" y="207" curvePoint="false"/>
+<arcpath id="001" x="711" y="207" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="ProcesarT2P1 to Tarea2P1" source="PT2P1" target="Tarea2P1">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="631" y="132" curvePoint="false"/>
+<arcpath id="001" x="702" y="132" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="RecursoTareas to EmpezarP1" source="RecursoTareas" target="EP1">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="704" y="348" curvePoint="false"/>
+<arcpath id="001" x="496" y="212" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="Solucion1 to DisponibleM1" source="s1" target="DisM1">
+<graphics/>
+<inscription>
+<value>Default,7</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="1086" y="162" curvePoint="false"/>
+<arcpath id="001" x="1043" y="126" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="T2 to ListoP1" source="T2" target="ListoP1">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="721" y="207" curvePoint="false"/>
+<arcpath id="001" x="792" y="207" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="T2 to RecursoTareas" source="T2" target="RecursoTareas">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="717" y="222" curvePoint="false"/>
+<arcpath id="001" x="717" y="342" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="Tarea2P1 to FinalizarT2P1" source="Tarea2P1" target="FinalizarT2P1">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="731" y="132" curvePoint="false"/>
+<arcpath id="001" x="801" y="132" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+</net>
+</pnml>
