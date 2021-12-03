@@ -11,18 +11,19 @@ public class PetriNet{
     private Matrix currentMarking;
  
 
-    public PetriNet(int[][] inc, int[] trans,int[] initM, int[] currentM){
+    public PetriNet(int[][] inc, int[] trans,int[] marking){
 
         incidenceMatrix = new Matrix(inc);
-        sensitizedTrans = new Matrix(1, trans.lenght, trans);
-        initMarking     = new Matrix(1, initM.length, initM);
-        currentMarking  = new Matrix(1, currentM.length, currentM);
+        //new Matrix(1, trans.lenght, trans);
+        initMarking     = new Matrix(1, marking.length, marking);
+        currentMarking  = new Matrix(1, marking.length, marking);
+        updateSensitizedTrans();
     
     }
     /**
      * Actualiza transiciones sensibilizadas
      */
-    public updateSensitizedTrans(){
+    public void updateSensitizedTrans(){
 
         for(int j=0; j<incidenceMatrix.getColumnDimension(); j++){
 
@@ -36,13 +37,18 @@ public class PetriNet{
                 }
             }
         }
+
+        for(int i=0; i<sensitizedTrans.getColumnDimension(); i++){
+            System.out.println(sensitizedTrans.get(i,j));
+        }
+
     }
     /**
      * Actualiza marcado de la rdp tras un disparo exitoso.
      * m = m0 + I ·σ.
-     * @param sigma : vector de disparo
+     * @param firing : vector de disparo
      */
-    public updateCurrentMarking(Matrix sigma){
+    public void updateCurrentMarking(Matrix firing){
 
         
     }
