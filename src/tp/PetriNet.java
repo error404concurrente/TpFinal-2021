@@ -1,6 +1,6 @@
+package tp;
 import java.util.ArrayList;
 import java.util.Arrays;
-
 import Jama.Matrix;
 
 public class PetriNet{
@@ -11,13 +11,13 @@ public class PetriNet{
     private Matrix currentMarking;
  
 
-    public PetriNet(int[][] inc, int[] trans,int[] marking){
+    public PetriNet(double[][] inc, int[] trans,int[] marking){
 
         incidenceMatrix = new Matrix(inc);
         //new Matrix(1, trans.lenght, trans);
-        initMarking     = new Matrix(1, marking.length, marking);
-        currentMarking  = new Matrix(1, marking.length, marking);
-        updateSensitizedTrans();
+        //initMarking     = new Matrix(1, marking.length, marking);
+        //currentMarking  = new Matrix(1, marking.length, marking);
+        //updateSensitizedTrans();
     
     }
     /**
@@ -39,7 +39,7 @@ public class PetriNet{
         }
 
         for(int i=0; i<sensitizedTrans.getColumnDimension(); i++){
-            System.out.println(sensitizedTrans.get(i,j));
+            //System.out.println(sensitizedTrans.get(i,j));
         }
 
     }

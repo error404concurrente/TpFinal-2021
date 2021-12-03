@@ -1,9 +1,10 @@
 import java.util.ArrayList;
+import tp.PetriNet;
 
 public class Main {
 
     public static void main(String[] args){
-        int[][] inc = { { 0,  1,  0, -1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0},
+        double[][] inc = { { 0,  1,  0, -1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0},
 						{ 0,  0,  1,  0, -1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0},
 						{ 1, -1, -1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0},
 						{ 0,  0,  0,  0,  0,  0,  0,  0, -1,  0, -1,  0,  0,  0,  7,  0,  0},
