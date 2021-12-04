@@ -11,37 +11,41 @@ public class PetriNet{
     private Matrix currentMarking;
  
 
-    public PetriNet(double[][] inc, int[] trans,int[] marking){
+    public PetriNet(double[][] inc, int[] trans,double[] marking){
 
         incidenceMatrix = new Matrix(inc);
         //new Matrix(1, trans.lenght, trans);
         //initMarking     = new Matrix(1, marking.length, marking);
-        //currentMarking  = new Matrix(1, marking.length, marking);
-        //updateSensitizedTrans();
+        currentMarking  = new Matrix(marking, 1);
+        sensitizedTrans = new Matrix(1, incidenceMatrix.getColumnDimension());
+        updateSensitizedTrans();
     
     }
     /**
      * Actualiza transiciones sensibilizadas
      */
     public void updateSensitizedTrans(){
+        boolean enableSensitizedTrans;
 
-        for(int j=0; j<incidenceMatrix.getColumnDimension(); j++){
+        //long currentTime = System.currentTimeMillis(); //Establezco el tiempo una sola vez para denotar que todas las transiciones se sensibilizaron "al mismo tiempo".
 
-            for(int i=0; i<incidenceMatrix.getRowDimension(); i++){
-               
-                if((incidenceMatrix.get(i,j) >= currentMarking.get(i,j)) && (incidenceMatrix.get(i,j) < 0)){
-                    sensitizedTrans.set(0, j, 1);
+        for(int j = 0; j < incidenceMatrix.getColumnDimension(); j++) {
+            enableSensitizedTrans = true;
+            
+            for(int i = 0; i < incidenceMatrix.getRowDimension(); i++)
+                if(incidenceMatrix.get(i, j) > currentMarking.get(0, i)) {
+                    enableSensitizedTrans = false;
+                    break;
                 }
-                else{
-                    sensitizedTrans.set(0, j, 0);
-                }
-            }
-        }
+            
+            if(enableSensitizedTrans) {
+                sensitizedTrans.set(0, j, 1);
+                //setEnabledAtTime(j, currentTime);
+            } else sensitizedTrans.set(0, j, 0);
 
-        for(int i=0; i<sensitizedTrans.getColumnDimension(); i++){
-            //System.out.println(sensitizedTrans.get(i,j));
+            
         }
-
+        sensitizedTrans.print(sensitizedTrans.getRowDimension(),0);
     }
     /**
      * Actualiza marcado de la rdp tras un disparo exitoso.
