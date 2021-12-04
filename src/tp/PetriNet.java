@@ -14,8 +14,8 @@ public class PetriNet{
     public PetriNet(double[][] inc, int[] trans,double[] marking){
 
         incidenceMatrix = new Matrix(inc);
-        //new Matrix(1, trans.lenght, trans);
-        //initMarking     = new Matrix(1, marking.length, marking);
+
+        initMarking     = new Matrix(marking, 1);
         currentMarking  = new Matrix(marking, 1);
         sensitizedTrans = new Matrix(1, incidenceMatrix.getColumnDimension());
         updateSensitizedTrans();
@@ -33,7 +33,7 @@ public class PetriNet{
             enableSensitizedTrans = true;
             
             for(int i = 0; i < incidenceMatrix.getRowDimension(); i++)
-                if(incidenceMatrix.get(i, j) > currentMarking.get(0, i)) {
+                if((incidenceMatrix.get(i, j)*(-1)) > currentMarking.get(0, i)) {
                     enableSensitizedTrans = false;
                     break;
                 }
@@ -41,7 +41,10 @@ public class PetriNet{
             if(enableSensitizedTrans) {
                 sensitizedTrans.set(0, j, 1);
                 //setEnabledAtTime(j, currentTime);
-            } else sensitizedTrans.set(0, j, 0);
+            }
+            else {
+                sensitizedTrans.set(0, j, 0);
+            }
 
             
         }
