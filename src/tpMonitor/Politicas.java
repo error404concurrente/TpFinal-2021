@@ -1,8 +1,7 @@
 package tpMonitor;
 
-import java.util.Queue;
 import java.util.TreeMap;
-import java.util.concurrent.ConcurrentLinkedDeque;
+import java.util.Random;
 
 public final class Politicas {
 
@@ -14,32 +13,47 @@ public final class Politicas {
 		setLimite(limite);
 		inicializar(cantidad);
 	}
-
-	public static Boolean decidirYo(Hilo hilito) {
-
-		if (contador.get(hilito.getID()) <= contador.get(hilito.getIDR())) {
-//			Log.spit("Voy: "+contador.get(hilito.getID())+" y el otro va: "+ contador.get(hilito.getIDR()));
-			return true;
+	
+	/* En base a un vector con las tareas que se encuentran en la cola de espera y que estan sensibilizados
+	 * se elige de manera aleatoria una tarea para ser despertada
+	 * 
+	 * @param espera: vector con tareas a elegir
+	 * @return indice de la transicion elegida
+	 */
+	public int elegirTarea(int[] espera) {
+		int aux = 0;
+		for(int i = 0; i < espera.length; i++) {
+			aux += espera[i];
 		}
-		return false;
-	}
-
-	public static Boolean estaRival(Hilo hilito, Queue<Hilo> espera) {
-
-		for (Hilo hilito2 : espera) {
-			if (hilito.getIDR() == hilito2.getID()) {
-//				Log.spit("Voy: "+contador.get(hilito.getID())+" y el otro va: "+ contador.get(hilito.getIDR()));
-				return true;
+		
+		int indice;
+		Random random = new Random();
+		aux = random.nextInt(aux) + 1;
+		for(indice = 0; indice < espera.length; indice++) {
+			if( espera[indice] == 1 ) {
+				aux--;
+				if( aux == 0 ) {
+					return indice;
+				}
 			}
 		}
-		return false;
+		
+		return indice;
 	}
 
-	public static void aumentar(Hilo hilito) {
-		// Log.spit("Voy: "+contador.get(hilito.getID())+" y el otro va: "+
-		// contador.get(hilito.getIDR()));
-		contador.replace(hilito.getID(), contador.get(hilito.getID()), contador.get(hilito.getID()) + 1);
-//		Log.spit("Ahora voy: "+contador.get(hilito.getID()));
+	/* Aumenta contador de veces que se ejecuto la tarea
+	 * 
+	 * @param tarea: tarea que se ejecuto
+	 */
+	public static void aumentar(int[] tarea) {
+		for (int i = 0; i < tarea.length; i++) {
+			if (tarea[i] == 1) {
+				//Log.spit("Tarea: "+ Thread.currentThread().getName() + "iba ejecutandose: " + contador.get(i));
+				contador.replace(i, contador.get(i), contador.get(i) + 1);
+				//Log.spit("Ahora va" + contador.get(i));
+				break;
+			}
+		}
 	}
 
 	private void inicializar(int cantidad) {

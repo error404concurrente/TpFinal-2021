@@ -1,7 +1,5 @@
 package tpMonitor;
 
-//import java.util.ArrayList;
-
 public class Hilo implements Runnable {
 
 	private boolean politico;
@@ -29,7 +27,7 @@ public class Hilo implements Runnable {
 	public void run() {
 		while (!Politicas.terminado()) {
 			try {
-				monitor.enter(this);
+				monitor.enter(tarea);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

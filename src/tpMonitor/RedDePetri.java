@@ -1,7 +1,5 @@
 package tpMonitor;
 
-//import java.util.ArrayList;
-//import java.util.Arrays;
 
 public class RedDePetri {
 
@@ -35,49 +33,22 @@ public class RedDePetri {
 		}
 	}
 	
-	//Para actualizar la marca actual
-	//Parece que no la usa nadie
-	/*public void changeCurrent(int[] newCurrent) {
-		marcaActual = newCurrent;
-	}*/
 
-	public void disparar(Hilo hilo) throws InterruptedException {
+	public void disparar(int[] tarea) throws InterruptedException {
 //		Log.spit("Hilo entrante: " + Thread.currentThread().getName() + "  Disparo: " + hilo.strTarea());
 //		Log.spit("Compatibilidad Confirmada");
 //		Log.spit("-------------- Resultados de Disparo --------------");
 //		Log.spit("Estado de RdP Antes:   " + strMarcaActual() + "  ----  T. Sensibles Antes:   " + strTranSensible());
-		calcularMarcaActual(hilo.getTarea());
+		calcularMarcaActual(tarea);
 		calcularVectorSensible();
 		Log.spit("[Disparo Efectuado]: " + Thread.currentThread().getName() + "  [Estado Actual]: " + strMarcaActual()
 				+ " [T.Sensibilizadas]: " + strTranSensible());
 //		Log.spit("Estado de RdP Despues: " + strMarcaActual() + "  ----  T. Sensibles Despues: " + strTranSensible());
 //		Log.spit("-------------- Fin Resultados --------------");
-		Politicas.aumentar(hilo);
-		Log.addDisparo(hilo.getTarea());
+		Politicas.aumentar(tarea);
+		Log.addDisparo(tarea);
 		showPinvariants(pinvariant, marcaActual);
 
-	}
-
-	/* Tras haber adquirido mutex, verifica si esta sensibilizada la transicion que quiere disparar
-	 * y si no hay problema con la politica
-	 * 
-	 * @param tarea: vector de enteros que indica la transicion que quiere disparar
-	 * @param hilo: de objeto Hilo, aquel que se ejecutando dentro del mutex actualmente
-	 * @return true: si la transicion se puede ejecutar sin problema
-	 * @return false: si la transicion no puede ser ejecutada en este momento
-	 */
-	public boolean verificarCompatibilidad(int[] tarea, Hilo hilo) throws InterruptedException {
-		// Ej: verificarCompatibilidad(hilo.getTarea())
-		for (int i = 0; i < tranSensibilizadas.length; i++) {
-			if (tranSensibilizadas[i] == 1 && tarea[i] == 1) {
-				if ((!hilo.getPolitico() || (hilo.getPolitico() && Politicas.decidirYo(hilo)))) {
-					// Log.spit("RDP - Transicion detectada: T"+i);
-					return true;
-				}
-			}
-		}
-//		Log.spit("Compatibilidad Denegada");
-		return false;
 	}
 
 	/*Tras haber adquirido mutex, verifica si esta sensibilizada la transicion que quiere disparar
@@ -86,8 +57,8 @@ public class RedDePetri {
 	 * @return true: si la transicion se puede ejecutar sin problema
 	 * @return false: si la transicion no puede ser ejecutada en este momento
 	 */
-	public boolean verificarCompatibilidad(int[] tarea) {
-		// Ej: verificarCompatibilidad(hilo.getTarea())
+	public boolean verificarSensibilidad(int[] tarea) {
+		// Ej: verificarSensibilidad(hilo.getTarea())
 		boolean compatible = false;
 		for (int i = 0; i < tranSensibilizadas.length; i++) {
 			if (tranSensibilizadas[i] == 1 && tarea[i] == 1) {
@@ -165,10 +136,9 @@ public class RedDePetri {
 	 * @return true: si el hilo se encuentra dentro de la ventana temporal y puede dispararse
 	 * @return false: si el hilo no se encuentra dentro de la ventana y no puede dispararse
 	 */
-	public boolean checkTemporal(Hilo hilo) throws InterruptedException {
-		int[] aux = hilo.getTarea();
-		for (int i = 0; i < aux.length; i++) {
-			if (aux[i] == 1) {
+	public boolean checkTemporal(int[] tarea) throws InterruptedException {
+		for (int i = 0; i < tarea.length; i++) {
+			if (tarea[i] == 1) {
 				long tSensible = System.currentTimeMillis() - transTimestamp[i];
 				long t = alfa[i] - tSensible;
 				if (t > 0) {
@@ -193,10 +163,9 @@ public class RedDePetri {
 	 * @param hilo: para acceder a la transicion que quiere disparar
 	 * @return long: cantidad de tiempo que dormira el hilo en base a su ventana temporal
 	 */
-	public long mimirTime(Hilo hilo) {
-		int[] aux = hilo.getTarea();
-		for (int i = 0; i < aux.length; i++) {
-			if (aux[i] == 1) {
+	public long sleepTime(int[] tarea) {
+		for (int i = 0; i < tarea.length; i++) {
+			if (tarea[i] == 1) {
 				long tSensible = System.currentTimeMillis() - transTimestamp[i];
 				long t = alfa[i] - tSensible;
 				return t;
@@ -264,5 +233,9 @@ public class RedDePetri {
 
 	public int[] getTranSensibilizadas() {
 		return tranSensibilizadas;
+	}
+	
+	public int getCantidadTransiciones() {
+		return tranSensibilizadas.length;
 	}
 }

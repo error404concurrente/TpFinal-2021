@@ -1,77 +1,68 @@
 package tpMonitor;
 
-import java.util.Queue;
-import java.util.concurrent.ConcurrentLinkedDeque;
+import java.util.ArrayList;
 import java.util.concurrent.Semaphore;
 
 public class Cola {
 
-	private RedDePetri rdp;
-	private Queue<Hilo> espera;
-	private Semaphore entrada;
+	private int numeroTransiciones;
+	private ArrayList<Semaphore> cola;
 
-	public Cola(RedDePetri rdp, Semaphore entrada) {
-		this.rdp = rdp;
-		espera = new ConcurrentLinkedDeque<Hilo>();
-		this.entrada = entrada;
+	public Cola(int numeroTransiciones) {
+		this.numeroTransiciones = numeroTransiciones;
+		cola = new ArrayList<Semaphore>();
+		inicializarCola();
 	}
 
-	public void buscarEspera() {
-		boolean encontrado = false;
-		for (Hilo hilito : espera) {
-			if (rdp.verificarCompatibilidad(hilito.getTarea())) {
-				if (!hilito.getPolitico()) {
-//					Log.spit("NO HAY POLITICA, DESPIERTO AL hilito" + hilito.getID());
-					desEncolar(hilito);
-					encontrado = true;
-					break;
-				} else {
-//					Log.spit("HAY POLITICA, DECIDO POR hilito" + hilito.getID());
-					if (Politicas.decidirYo(hilito)) {
-//						Log.spit("LE TOCA AL hilito" + hilito.getID());
-						desEncolar(hilito);
-						encontrado = true;
-						break;
-					} else if (Politicas.estaRival(hilito, espera)) {
-//						Log.spit("NO LE TOCA AL hilito" + hilito.getID());
-						for (Hilo hilito2 : espera) {
-							if (hilito.getIDR() == hilito2.getID()) {
-								if (rdp.verificarCompatibilidad(hilito2.getTarea())) {
-//									Log.spit("LE TOCA AL hilito" + hilito2.getID());
-									desEncolar(hilito2);
-									encontrado = true;
-									break;
-								} else {
-//									Log.spit("LE TOCA AL hilito" + hilito.getIDR()+ " PERO NO ESTA SENSIBILIZADO");
-								}
-							}
-						}
-					} else {
-//						Log.spit("LE TOCA AL OTRO HILO PERO NO ESTA");
-					}
-				}
+	private void inicializarCola(){
+		for(int i = 0; i < numeroTransiciones; i++) {
+			cola.add(new Semaphore(0));
+		}
+	}
+	
+	/* Realiza una busqueda en la cola de espera para ver quienes se encuentran, y devuelve un array de
+	 * enteros del mismo largo que el de vector de transiciones. Dado que cada semaforo de la cola
+	 * fue inicializado en 0 y que hay tan solo un hilo por transicion, si hay alguno en la cola
+	 * sera aquel que este esperando en la cola del semaforo, por lo tanto utilizando getQueueLenght
+	 * dara 0 cuando no haya ningun hilo esperando en la posicion que representaria a su transicion
+	 * y dara 1 cuando si lo este
+	 * 
+	 * @return vector de enteros que indica los hilos de que transicion se encuentran esperando
+	 */
+	public int[] buscarEspera() {
+		int[] encolados = new int[numeroTransiciones];
+   	 	for(int i = 0; i < numeroTransiciones; i++) {
+            encolados[i] = cola.get(i).getQueueLength();
+   	 	}
+		
+		return encolados;
+	}
+
+	/* En base a la transicion que representa la tarea, intentara adquirir el semaforo correspondiente
+	 * y quedara en espera dado que el semaforo fue inicializado con 0
+	 * 
+	 * @param tarea: vector que representa la transicion que dispara el hilo
+	 */
+	public void encolar(int[] tarea) throws InterruptedException {
+//		Log.spit("ME VOY A LA COLA " + Thread.currentThread().getName()+"  Disparo: "+hilo.strTarea());
+		int indice = 0;
+		for(int i = 0; i < tarea.length; i++) {
+			if( tarea[i] == 1 ) {
+				indice = i;
+				break;
 			}
 		}
-
-		/*if (!encontrado) {
-//		Log.spit("NO HAY HILITOS PARA DESPERTAR");
-			entrada.release();
-		}*/
+		
+		cola.get(indice).acquire();
 	}
 
-	public void encolar(Hilo hilo) throws InterruptedException {
-//		Log.spit("ME VOY A MIMIR " + Thread.currentThread().getName()+"  Disparo: "+hilo.strTarea());
-		espera.add(hilo);
-		synchronized (hilo) {
-			hilo.wait();
-		}
-	}
-
-	public void desEncolar(Hilo hilito) {
+	/* En base a un indice representativo realiza un release de un semaforo, permitiendo que el hilo
+	 * que anteriormente habia quedado dormido al hacer el acquire pueda seguir con su ejecucion
+	 * 
+	 * @param indice: el indice representativo del hilo a despertar
+	 */
+	public void desEncolar(int indice) {
 //		Log.spit("HAY UN HILO PARA DESPERTAR");
-		espera.remove(hilito);
-		synchronized (hilito) {
-			hilito.notify();
-		}
+		cola.get(indice).release();
 	}
 }

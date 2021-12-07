@@ -47,11 +47,7 @@ public class Main {
 		long[] beta = { 0xfffffff, 0xfffffff, 0xfffffff, 0xfffffff, 0xfffffff, 0xfffffff, 0xfffffff, 0xfffffff,
 				0xfffffff, 0xfffffff, 0xfffffff, 0xfffffff, 0xfffffff, 0xfffffff, 0xfffffff, 0xfffffff, 0xfffffff };
 
-		// Creacion de RpP
-		RedDePetri rdp = new RedDePetri(inc, tSensibility, marking, alfa, beta);
-
-		// Creacion de Monitor
-		Monitor monitor = new Monitor(rdp);
+		
 
 		// Creacion de Hilos y transiciones
 		// Se entienden como tareas a las transiciones que el hilo quiere disparar
@@ -75,8 +71,16 @@ public class Main {
 
 		final int N_TRANS = transiciones.length;
 //		politica.inicializar(N_TAREAS);
+		
 		// Creacion de Politica
 		Politicas politica = new Politicas(N_TRANS, 1000);
+		
+		// Creacion de RpP
+		RedDePetri rdp = new RedDePetri(inc, tSensibility, marking, alfa, beta);
+
+		// Creacion de Monitor
+		Monitor monitor = new Monitor(rdp, politica);
+				
 		ArrayList<Thread> hilito = new ArrayList<Thread>();
 
 		// A cada hilo se les pasa el monitor, la tarea 1 y tarea 2 a realizar, si posee
