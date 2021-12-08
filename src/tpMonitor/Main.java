@@ -82,8 +82,7 @@ public class Main {
 				
 		ArrayList<Thread> hilos = new ArrayList<Thread>();
 		
-		// A cada hilo se les pasa el monitor, la tarea 1 y tarea 2 a realizar, si posee
-		// politica, su ID y el ID del rival
+		// A cada hilo se les pasa el monitor, la tarea 1 y tarea 2 a realizar
 		hilos.add(new Thread(new Hilo(monitor, transiciones[0], transiciones[0]), "Arrival Rate " + 0));
 		hilos.add(new Thread(new Hilo(monitor, transiciones[1], transiciones[1]), "Asignar P1 " + 1));
 		hilos.add(new Thread(new Hilo(monitor, transiciones[2], transiciones[2]), "Asignar P2 " + 2));
