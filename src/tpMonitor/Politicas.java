@@ -72,8 +72,8 @@ public final class Politicas {
 
 	public static int getMil() {
 		int a = contador.get(5);
-		int b = contador.get(6) / 2;
-		int c = contador.get(7) / 2;
+		int b = contador.get(6);
+		int c = contador.get(7);
 		int d = contador.get(16);
 		return a + b + c + d;
 	}
