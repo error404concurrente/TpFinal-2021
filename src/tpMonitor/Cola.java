@@ -44,7 +44,6 @@ public class Cola {
 	 * @param tarea: vector que representa la transicion que dispara el hilo
 	 */
 	public void encolar(int[] tarea) throws InterruptedException {
-//		Log.spit("ME VOY A LA COLA " + Thread.currentThread().getName()+"  Disparo: "+hilo.strTarea());
 		int indice = 0;
 		for(int i = 0; i < tarea.length; i++) {
 			if( tarea[i] == 1 ) {
@@ -62,7 +61,6 @@ public class Cola {
 	 * @param indice: el indice representativo del hilo a despertar
 	 */
 	public void desEncolar(int indice) {
-//		Log.spit("HAY UN HILO PARA DESPERTAR");
 		cola.get(indice).release();
 	}
 }

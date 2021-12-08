@@ -33,43 +33,41 @@ public class RedDePetri {
 		}
 	}
 	
-
+	/* Un hilo que haya llegado aqui consiguio la exclusion mutua y disparara su transicion asociada.
+	 * Se actualizara el vector de marca actual y el de vectores sensibilizados.
+	 * Adicionalmente llamara a funciones de contador para la ejecucion del programa e impresion 
+	 * del log
+	 * 
+	 * @param tarea: La transicion a ser disparada
+	 * @throws InterruptedException
+	 */
 	public void disparar(int[] tarea) throws InterruptedException {
-//		Log.spit("Hilo entrante: " + Thread.currentThread().getName() + "  Disparo: " + hilo.strTarea());
-//		Log.spit("Compatibilidad Confirmada");
-//		Log.spit("-------------- Resultados de Disparo --------------");
-//		Log.spit("Estado de RdP Antes:   " + strMarcaActual() + "  ----  T. Sensibles Antes:   " + strTranSensible());
 		calcularMarcaActual(tarea);
 		calcularVectorSensible();
 		Log.spit("[Disparo Efectuado]: " + Thread.currentThread().getName() + "  [Estado Actual]: " + strMarcaActual()
 				+ " [T.Sensibilizadas]: " + strTranSensible());
-//		Log.spit("Estado de RdP Despues: " + strMarcaActual() + "  ----  T. Sensibles Despues: " + strTranSensible());
-//		Log.spit("-------------- Fin Resultados --------------");
 		Politicas.aumentar(tarea);
 		Log.addDisparo(tarea);
 		showPinvariants(pinvariant, marcaActual);
-
 	}
 
-	/*Tras haber adquirido mutex, verifica si esta sensibilizada la transicion que quiere disparar
+	/* Tras haber adquirido mutex, verifica si esta sensibilizada la transicion que quiere disparar
 	 * 
 	 * @param tarea: vector de enteros que indica la transicion que quiere disparar
 	 * @return true: si la transicion se puede ejecutar sin problema
 	 * @return false: si la transicion no puede ser ejecutada en este momento
 	 */
 	public boolean verificarSensibilidad(int[] tarea) {
-		// Ej: verificarSensibilidad(hilo.getTarea())
 		boolean compatible = false;
 		for (int i = 0; i < tranSensibilizadas.length; i++) {
 			if (tranSensibilizadas[i] == 1 && tarea[i] == 1) {
-//				Log.spit("RDP: Transicion compatible detectada: T"+i);
 				compatible = true;
 			}
 		}
 		return compatible;
 	}
 
-	/*Realiza calculo para nueva marca habiendo disparado una transicion
+	/* Realiza calculo para nueva marca habiendo disparado una transicion
 	 * 
 	 * Para realizar el calculo, utiliza la matriz de incidencia, donde realiza
 	 * una multiplicacion de cada una de sus columnas con el vector de la transicion
@@ -112,7 +110,6 @@ public class RedDePetri {
 			// Crear nuevo vector de transiciones sensibilizadas En la posicion i va a ser 1
 			// si no hay valores negativos en S, de otra forma ser 0
 			tranSensibilizadas[i] = 1;
-//			transTimestamp[i]=System.currentTimeMillis();
 			for (int x = 0; x < s.length; x++) {
 				if (s[x] < 0) {
 					tranSensibilizadas[i] = 0;
@@ -142,15 +139,11 @@ public class RedDePetri {
 				long tSensible = System.currentTimeMillis() - transTimestamp[i];
 				long t = alfa[i] - tSensible;
 				if (t > 0) {
-//					Log.spit("MIMIENDO");
-//					Log.spit("t:" + t + "   " + alfa[i] + "  " + System.currentTimeMillis() + "   " + transTimestamp[i]);
 					return false;
 				} else if (t <= 0 && beta[i] >= tSensible) {
-//					Log.spit("NO MIMIENDO: t:" + t + "   " + alfa[i] + "  " + System.currentTimeMillis() + "   "+ transTimestamp[i]);
 					return true;
 				} else if (t <= 0 && beta[i] < tSensible) {
 					Log.spit(beta[i] + " ");
-//					Log.spit("Error de Beta: "+tSensible+">beta");
 					return false;
 				}
 			}
@@ -160,8 +153,11 @@ public class RedDePetri {
 
 	/* Calcula tiempo para dormir del hilo para que se encuentre dentro de la ventana temporal
 	 * 
-	 * @param hilo: para acceder a la transicion que quiere disparar
+	 * @param tarea: para acceder a la transicion que quiere disparar
 	 * @return long: cantidad de tiempo que dormira el hilo en base a su ventana temporal
+	 * @return 1000: Si por algun motivo se hubiera llamado a esta funcion con una transicion
+	 * 				 que no estuviera sensibilizada, este sera el valor por defecto devuelto
+	 * 				 por caso de que hubiera algun error
 	 */
 	public long sleepTime(int[] tarea) {
 		for (int i = 0; i < tarea.length; i++) {
@@ -174,8 +170,7 @@ public class RedDePetri {
 		return 1000;
 	}
 
-	/*
-	 * Luego de cada disparo, muestra que se cumplan los p invariantes
+	/* Luego de cada disparo, muestra que se cumplan los p invariantes
 	 * y por lo tanto que no hay problemas en la red
 	 */
 	public void showPinvariants(int[][] pinvariant, int[] m) {

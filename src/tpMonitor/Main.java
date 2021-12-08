@@ -70,7 +70,6 @@ public class Main {
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 } };// T2 16 t
 
 		final int N_TRANS = transiciones.length;
-//		politica.inicializar(N_TAREAS);
 		
 		// Creacion de Politica
 		Politicas politica = new Politicas(N_TRANS, 1000);
@@ -119,18 +118,18 @@ public class Main {
 			hilito.get(i).stop();
 		}
 
-		Log.spit("Tares ejecutadas en Procesador 1: " + Politicas.contador.get(3) + "\n\t- Tareas Tipo 1 ejecutadas: "
-				+ Politicas.contador.get(16) + "\n\t- Tareas Tipo 2 ejecutadas: " + (Politicas.contador.get(6) / 2));
-		Log.spit("Tares ejecutadas en Procesador 2: " + Politicas.contador.get(4) + "\n\t- Tareas Tipo 1 ejecutadas: "
-				+ Politicas.contador.get(5) + "\n\t- Tareas Tipo 2 ejecutadas: " + (Politicas.contador.get(7) / 2));
-		Log.spit("Tares guardadas en Memoria 1: " + Politicas.contador.get(8));
-		Log.spit("Tares guardadas en Memoria 2: " + Politicas.contador.get(9));
+		Log.spit("Tareas ejecutadas en Procesador 1: " + Politicas.contador.get(3) + "\n\t- Tareas Tipo 1 ejecutadas: "
+				+ Politicas.contador.get(16) + "\n\t- Tareas Tipo 2 ejecutadas: " + (Politicas.contador.get(6)));
+		Log.spit("Tareas ejecutadas en Procesador 2: " + Politicas.contador.get(4) + "\n\t- Tareas Tipo 1 ejecutadas: "
+				+ Politicas.contador.get(5) + "\n\t- Tareas Tipo 2 ejecutadas: " + (Politicas.contador.get(7)));
+		Log.spit("Tareas guardadas en Memoria 1: " + (Politicas.contador.get(8) + Politicas.contador.get(10)));
+		Log.spit("Tareas guardadas en Memoria 2: " + (Politicas.contador.get(9) + Politicas.contador.get(11)));
 		Log.change2Console();
 		Log.spit("Limite de " + Politicas.getLimite() + " tareas alcanzado.(Log para mas detalles)");
 		Log.spit("Creando archivo de disparos efectuados...");
 		Log.createLogDisparos();
 		Log.change2Console();
 		Log.spit("Log de Disparos creado");
-		Log.spit("Fin de Programa UwU");
+		Log.spit("Fin de Programa");
 	}
 }

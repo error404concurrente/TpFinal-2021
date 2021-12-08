@@ -48,9 +48,7 @@ public final class Politicas {
 	public static void aumentar(int[] tarea) {
 		for (int i = 0; i < tarea.length; i++) {
 			if (tarea[i] == 1) {
-				//Log.spit("Tarea: "+ Thread.currentThread().getName() + "iba ejecutandose: " + contador.get(i));
 				contador.replace(i, contador.get(i), contador.get(i) + 1);
-				//Log.spit("Ahora va" + contador.get(i));
 				break;
 			}
 		}

@@ -18,30 +18,34 @@ public final class Monitor {
 
 	/* El hilo intenta adquirir exclusion mutua de la red de petri para poder disparar la transicion
 	 * 
-	 * @param hilo: para acceder a la transicion que quiere disparar
+	 * @param tarea: para acceder a la transicion que quiere disparar
 	 * @throws InterruptedException: cuando no se pudo entrar al semaforo por una interrupcion
 	 */
 	public void enter(int[] tarea) throws InterruptedException {
 		// Obtencion de los semaforos
 		try {
-//			Log.spit("Hilo entrante: "+Thread.currentThread().getName());
 			mutex.acquire();
 		} catch (InterruptedException e) {
 			Log.spit("ERROR DE ENTRADA DE MONITOR AIUDA");
 			e.printStackTrace();
 		}
 		execute(tarea);
-//		Log.spit("TERMINE ME VOY " + Thread.currentThread().getName()+"  Disparo: "+hilo.strTarea());
 	}
 
 	/* Una vez conseguida la exclusion mutua, y si no se ha alcanzado el limite, verifica que la
 	 * transicion este sensibilizada y dentro de la ventana de tiempo para ejecutarse.
 	 * 
-	 * Si se pudiera ejecutar realiza una busqueda en la cola de espera a continuacion.
-	 * Si no se pudiera ejecutar por la ventana de tiempo se duerme y vuelve a intentar.
-	 * Si no se pudiera ejecutar por la sensibilizacion de la transicion, se va a la cola.
+	 * Si se pudiera ejecutar realiza una busqueda en la cola de espera a continuacion. En caso de
+	 * poder despertar un hilo, se retira sin liberar el semaforo, y el hilo despertado sera el que
+	 * lo libere, de esa forma se ejecutan con exclusion mutua y dando prioridad a la cola de espera
 	 * 
-	 * @param hilo: para acceder a la transicion que quiere disparar
+	 * Si no se pudiera ejecutar por la ventana de tiempo se duerme el tiempo correspondiente
+	 * y luego sale y vuelve a intentar a traves de la funcion enter.
+	 * 
+	 * Si no se pudiera ejecutar por la sensibilizacion de la transicion, libera el semaforo y 
+	 * se va a la cola de espera, una vez fuera de la cola volvera a entrar a esta funcion.
+	 * 
+	 * @param tarea: para acceder a la transicion que quiere disparar
 	 * @throws InterruptedException: cuando no se pudo entrar al semaforo por una interrupcion
 	 */
 	private void execute(int[] tarea) throws InterruptedException {
@@ -56,22 +60,18 @@ public final class Monitor {
 						mutex.release();	//libero mutex y salgo del monitor
 					}
 					else {
-						int despertar = politica.elegirTarea(espera);
-						colaEspera.desEncolar(despertar);
+						int despertar = politica.elegirTarea(espera); //La politica elige uno para despertar
+						colaEspera.desEncolar(despertar); //Se saca de la cola la transicion elegida
 					}
 				}	
 				else { // Es compatible pero no esta en la ventana temporal
-					// Log.spit("Me voy "+Thread.currentThread().getName());
 					mutex.release();
 					Thread.sleep(rdp.sleepTime(tarea));
 					enter(tarea);
 				}
 			} else { // No esta sensibilizada, se va a la cola de espera y cuando despierta entre denuevo
-				// Log.spit("A la cola");
 				mutex.release();
 				colaEspera.encolar(tarea);
-				// Log.spit("ME VOY A EJECUTAR " + Thread.currentThread().getName()+" Disparo:
-				// "+hilo.strTarea());
 				execute(tarea);
 			}
 		}
