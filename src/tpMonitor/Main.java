@@ -80,32 +80,31 @@ public class Main {
 		// Creacion de Monitor
 		Monitor monitor = new Monitor(rdp, politica);
 				
-		ArrayList<Thread> hilito = new ArrayList<Thread>();
-
+		ArrayList<Thread> hilos = new ArrayList<Thread>();
+		
 		// A cada hilo se les pasa el monitor, la tarea 1 y tarea 2 a realizar, si posee
 		// politica, su ID y el ID del rival
-		hilito.add(new Thread(new Hilo(monitor, transiciones[0], transiciones[0], false, 0, 0), "Arrival Rate " + 0));
-		hilito.add(new Thread(new Hilo(monitor, transiciones[1], transiciones[1], true, 1, 2), "Asignar P1 " + 1));
-		hilito.add(new Thread(new Hilo(monitor, transiciones[2], transiciones[2], true, 2, 1), "Asignar P2 " + 2));
-		hilito.add(new Thread(new Hilo(monitor, transiciones[3], transiciones[3], true, 3, 4), "Empezar P1 " + 3));
-		hilito.add(new Thread(new Hilo(monitor, transiciones[4], transiciones[4], true, 4, 3), "Empezar P2 " + 4));
-		hilito.add(new Thread(new Hilo(monitor, transiciones[5], transiciones[5], false, 5, 5), "FinalizarT1P2 " + 5));
-		hilito.add(new Thread(new Hilo(monitor, transiciones[12], transiciones[6], false, 6, 6), "T2P1 " + 6));
-		hilito.add(new Thread(new Hilo(monitor, transiciones[13], transiciones[7], false, 7, 7), "T2P2 " + 7));
-		hilito.add(new Thread(new Hilo(monitor, transiciones[8], transiciones[8], true, 8, 9), "P1M1 " + 8));
-		hilito.add(new Thread(new Hilo(monitor, transiciones[9], transiciones[9], true, 9, 8), "P1M2 " + 9));
-		hilito.add(new Thread(new Hilo(monitor, transiciones[10], transiciones[10], true, 8, 9), "P2M1 " + 10));
-		hilito.add(new Thread(new Hilo(monitor, transiciones[11], transiciones[11], true, 9, 8), "P2M2 " + 11));
-		hilito.add(new Thread(new Hilo(monitor, transiciones[14], transiciones[14], false, 14, 14), "Solucion1 " + 14));
-		hilito.add(new Thread(new Hilo(monitor, transiciones[15], transiciones[15], false, 15, 15), "Solucion2 " + 15));
-		hilito.add(new Thread(new Hilo(monitor, transiciones[16], transiciones[16], false, 16, 16),
-				"FinalizarT1P1 " + 16));
+		hilos.add(new Thread(new Hilo(monitor, transiciones[0], transiciones[0]), "Arrival Rate " + 0));
+		hilos.add(new Thread(new Hilo(monitor, transiciones[1], transiciones[1]), "Asignar P1 " + 1));
+		hilos.add(new Thread(new Hilo(monitor, transiciones[2], transiciones[2]), "Asignar P2 " + 2));
+		hilos.add(new Thread(new Hilo(monitor, transiciones[3], transiciones[3]), "Empezar P1 " + 3));
+		hilos.add(new Thread(new Hilo(monitor, transiciones[4], transiciones[4]), "Empezar P2 " + 4));
+		hilos.add(new Thread(new Hilo(monitor, transiciones[5], transiciones[5]), "FinalizarT1P2 " + 5));
+		hilos.add(new Thread(new Hilo(monitor, transiciones[12], transiciones[6]), "T2P1 " + 6));
+		hilos.add(new Thread(new Hilo(monitor, transiciones[13], transiciones[7]), "T2P2 " + 7));
+		hilos.add(new Thread(new Hilo(monitor, transiciones[8], transiciones[8]), "P1M1 " + 8));
+		hilos.add(new Thread(new Hilo(monitor, transiciones[9], transiciones[9]), "P1M2 " + 9));
+		hilos.add(new Thread(new Hilo(monitor, transiciones[10], transiciones[10]), "P2M1 " + 10));
+		hilos.add(new Thread(new Hilo(monitor, transiciones[11], transiciones[11]), "P2M2 " + 11));
+		hilos.add(new Thread(new Hilo(monitor, transiciones[14], transiciones[14]), "Solucion1 " + 14));
+		hilos.add(new Thread(new Hilo(monitor, transiciones[15], transiciones[15]), "Solucion2 " + 15));
+		hilos.add(new Thread(new Hilo(monitor, transiciones[16], transiciones[16]),"FinalizarT1P1 " + 16));
 
 		// Creacion del log
 		Log.spit("Red De Petri Trabajando, por favor espere...");
 		Log.createLog();
-		for (int i = 0; i < hilito.size(); i++) {
-			hilito.get(i).start();
+		for (int i = 0; i < hilos.size(); i++) {
+			hilos.get(i).start();
 		}
 
 		while (!politica.terminado()) {
@@ -114,8 +113,8 @@ public class Main {
 
 		// Ya sabemos que no hay que usarlo, pero es para que los hilos
 		// no se queden durmiendo y se frene la ejecucion
-		for (int i = 0; i < hilito.size(); i++) {
-			hilito.get(i).stop();
+		for (int i = 0; i < hilos.size(); i++) {
+			hilos.get(i).stop();
 		}
 
 		Log.spit("Tareas ejecutadas en Procesador 1: " + Politicas.contador.get(3) + "\n\t- Tareas Tipo 1 ejecutadas: "
